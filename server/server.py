@@ -18,9 +18,6 @@ class Authentication(login_pb2_grpc.AuthenticationServicer):
         result, message = login(username, password)
         return login_pb2.LoginResponse(result=result, message=message)
 
-msg = login_pb2.LoginRequest(username='admin', password='qwerty')
-print(base64.b64encode(msg.SerializeToString()))
-
 if __name__ == '__main__':
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     login_pb2_grpc.add_AuthenticationServicer_to_server(Authentication(), server)
